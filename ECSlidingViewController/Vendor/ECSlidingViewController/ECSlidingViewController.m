@@ -279,10 +279,10 @@ NSString *const ECSlidingViewTopDidReset          = @"ECSlidingViewTopDidReset";
 
 - (void)anchorTopViewTo:(ECSide)side
 {
-  [self anchorTopViewTo:side animations:nil onComplete:nil];
+    [self anchorTopViewTo:side animated:YES animations:nil onComplete:nil];
 }
 
-- (void)anchorTopViewTo:(ECSide)side animations:(void (^)())animations onComplete:(void (^)())complete
+- (void)anchorTopViewTo:(ECSide)side animated:(BOOL)animated animations:(void (^)())animations onComplete:(void (^)())complete
 {
   CGFloat newCenter = self.topView.center.x;
   
@@ -294,7 +294,9 @@ NSString *const ECSlidingViewTopDidReset          = @"ECSlidingViewTopDidReset";
   
   [self topViewHorizontalCenterWillChange:newCenter];
   
-  [UIView animateWithDuration:0.25f animations:^{
+  CGFloat duration = animated?0.25f:0.0f;
+    
+  [UIView animateWithDuration:duration animations:^{
     if (animations) {
       animations();
     }
